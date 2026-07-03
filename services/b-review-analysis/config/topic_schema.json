@@ -1,0 +1,78 @@
+{
+  "gameplay": {
+    "name_ko": "게임성",
+    "description": "전투, 이동, 퍼즐, 핵심 플레이 방식과 전반적인 재미"
+  },
+  "story": {
+    "name_ko": "스토리",
+    "description": "줄거리, 서사, 캐릭터, 대사, 결말"
+  },
+  "graphics": {
+    "name_ko": "그래픽",
+    "description": "아트 스타일, 모델링, 애니메이션, 시각 효과"
+  },
+  "audio": {
+    "name_ko": "오디오",
+    "description": "음악, 효과음, 음성 연기, 사운드트랙"
+  },
+  "controls": {
+    "name_ko": "조작감",
+    "description": "키보드, 마우스, 게임패드 조작과 반응성"
+  },
+  "ui_ux": {
+    "name_ko": "UI·UX",
+    "description": "메뉴, HUD, 인벤토리, 화면 구성과 사용 편의성"
+  },
+  "performance": {
+    "name_ko": "성능·최적화",
+    "description": "프레임 저하, 렉, 끊김, 로딩, 최적화"
+  },
+  "bugs": {
+    "name_ko": "버그",
+    "description": "충돌, 튕김, 진행 불가, 저장 오류 등 소프트웨어 문제"
+  },
+  "difficulty_balance": {
+    "name_ko": "난이도·밸런스",
+    "description": "난이도, 전투 균형, 캐릭터나 무기의 밸런스"
+  },
+  "content": {
+    "name_ko": "콘텐츠",
+    "description": "맵, 퀘스트, 모드, 콘텐츠의 양과 다양성"
+  },
+  "replayability": {
+    "name_ko": "반복 플레이",
+    "description": "다회차 가치, 반복 플레이 동기, 랜덤성"
+  },
+  "value": {
+    "name_ko": "가격·가성비",
+    "description": "가격 대비 만족도, 구매 가치, 할인"
+  },
+  "multiplayer": {
+    "name_ko": "멀티플레이",
+    "description": "협동, 경쟁, 친구와의 플레이 경험"
+  },
+  "network_server": {
+    "name_ko": "네트워크·서버",
+    "description": "핑, 연결 끊김, 서버 상태, 매칭 문제"
+  },
+  "updates_support": {
+    "name_ko": "업데이트·지원",
+    "description": "패치, 업데이트, 개발자 소통과 사후 지원"
+  },
+  "monetization": {
+    "name_ko": "수익화",
+    "description": "DLC, 소액결제, 시즌패스, 페이투윈"
+  },
+  "accessibility": {
+    "name_ko": "접근성",
+    "description": "자막, 색약 모드, 글자 크기, 난이도 옵션"
+  },
+  "localization": {
+    "name_ko": "현지화",
+    "description": "번역 품질, 언어 지원, 오역"
+  },
+  "other": {
+    "name_ko": "기타",
+    "description": "다른 토픽에 명확히 포함되지 않는 내용"
+  }
+}
