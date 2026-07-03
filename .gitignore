@@ -245,3 +245,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# B파트 골든셋 라벨링 표본은 버전 관리
+!services/b-review-analysis/data/annotations/topic_annotation_sample.csv

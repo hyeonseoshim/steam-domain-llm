@@ -10,12 +10,26 @@ import pandas as pd
 # 파일 경로
 # ============================================================
 
-INPUT_PATH = Path("english_reviews_clean.csv")
+REPO_ROOT = Path(__file__).resolve().parents[3]
+PROJECT_DIR = Path(__file__).resolve().parents[1]
 
-OUTPUT_SAMPLE_PATH = Path("topic_annotation_sample.csv")
-OUTPUT_SCHEMA_PATH = Path("topic_schema.json")
-OUTPUT_TOPIC_GUIDE_PATH = Path("topic_guide.csv")
-OUTPUT_SUMMARY_PATH = Path("topic_sample_summary.txt")
+INPUT_PATH = (
+    REPO_ROOT
+    / "data"
+    / "processed"
+    / "english_reviews_clean.csv"
+)
+
+OUTPUT_SAMPLE_PATH = (
+    PROJECT_DIR
+    / "data"
+    / "annotations"
+    / "topic_annotation_sample.csv"
+)
+
+OUTPUT_SCHEMA_PATH = PROJECT_DIR / "config" / "topic_schema.json"
+OUTPUT_TOPIC_GUIDE_PATH = PROJECT_DIR / "config" / "topic_guide.csv"
+OUTPUT_SUMMARY_PATH = PROJECT_DIR / "reports" / "topic_sample_summary.txt"
 
 
 # ============================================================
@@ -24,8 +38,8 @@ OUTPUT_SUMMARY_PATH = Path("topic_sample_summary.txt")
 
 RANDOM_SEED = 42
 
-# 추천 1,500건 + 비추천 1,500건
-SAMPLES_PER_LABEL = 1_500
+# 1차 골든셋: 추천 150건 + 비추천 150건
+SAMPLES_PER_LABEL = 150
 
 # 동일한 게임 리뷰가 지나치게 많이 포함되지 않도록 제한
 MAX_REVIEWS_PER_APP = 5
@@ -274,6 +288,8 @@ def main() -> None:
 
     sample_df["positive_topics"] = ""
     sample_df["negative_topics"] = ""
+    sample_df["is_valid"] = ""
+    sample_df["invalid_reason"] = ""
     sample_df["annotation_note"] = ""
     sample_df["annotation_status"] = "pending"
 
@@ -286,9 +302,12 @@ def main() -> None:
         "recommendationid",
         "appid",
         "review_text_clean",
+        "voted_up",
         "label",
         "positive_topics",
         "negative_topics",
+        "is_valid",
+        "invalid_reason",
         "annotation_note",
         "annotation_status",
         "word_count",
