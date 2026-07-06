@@ -1,4 +1,33 @@
-# Byte-compiled / optimized / DLL files
+# Steam 데이터셋
+**/data/raw/
+**/data/processed/
+**/data/interim/
+**/data/sample/
+
+reviews.csv
+applications.csv
+application_*.csv
+english_reviews_clean*.csv
+topic_annotation_sample.csv
+topic_annotation_auto_labeled.csv
+reviews_per_appid.csv
+
+# 모델 및 체크포인트
+models/
+checkpoints/
+*.safetensors
+*.bin
+*.pt
+*.pth
+
+# 환경 및 캐시
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
 *$py.class
@@ -216,3 +245,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# B파트 골든셋 라벨링 표본은 버전 관리
+!services/b-review-analysis/data/annotations/topic_annotation_sample.csv
+services/b-review-analysis/reports/ollama_topic_eval/predictions_*.csv
