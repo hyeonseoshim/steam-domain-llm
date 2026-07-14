@@ -250,3 +250,20 @@ __marimo__/
 !services/b-review-analysis/data/annotations/topic_annotation_sample.csv
 services/b-review-analysis/reports/ollama_topic_eval/predictions_*.csv
 services/b-review-analysis/reports/ollama_topic_eval/predictions_*.csv
+# macOS
+.DS_Store
+**/.DS_Store
+# Local source datasets
+/data/
+# B review analysis intermediate datasets
+services/b-review-analysis/data/lora_topic_dataset/
+services/b-review-analysis/data/pseudo_labels/pseudo_topics_gemma3_27b_*.csv
+services/b-review-analysis/data/pseudo_labels/pseudo_topics_rag_v2_*.csv
+services/b-review-analysis/data/pseudo_labels/pseudo_topics_rag_v3_embedding_gemma3_27b_1000*.csv
+services/b-review-analysis/data/pseudo_labels/pseudo_topics_rag_v3_embedding_gemma3_27b_final_train_pool.csv
+services/b-review-analysis/data/pseudo_labels/rare_topic_candidates.csv
+services/b-review-analysis/data/pseudo_labels/rare_topic_candidates_labeled.csv
+services/b-review-analysis/data/pseudo_labels/rare_positive_target_verification.csv
+# Superseded prompt evaluation reports
+services/b-review-analysis/reports/prompt_strategy_eval/
+services/b-review-analysis/reports/prompt_strategy_eval_embedding/
