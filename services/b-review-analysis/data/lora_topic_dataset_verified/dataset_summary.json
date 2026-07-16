@@ -1,0 +1,17 @@
+{
+  "source_rows": 1287,
+  "train_rows": 1165,
+  "valid_rows": 122,
+  "topic_count": 19,
+  "label_count": 38,
+  "total_empty_label_rows": 49,
+  "train_empty_label_rows": 44,
+  "valid_empty_label_rows": 5,
+  "labels_missing_in_train": [],
+  "labels_missing_in_valid": [
+    "pos__network_server",
+    "neg__accessibility"
+  ],
+  "random_state": 42,
+  "valid_ratio": 0.1
+}

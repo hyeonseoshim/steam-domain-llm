@@ -1,0 +1,40 @@
+{
+  "topics": {
+    "accessibility": "Accessibility options, readability, subtitles, colorblind support, difficulty options, or inclusive design features.",
+    "audio": "Music, sound effects, voice acting, soundtrack, audio quality, or sound design.",
+    "bugs": "Crashes, glitches, errors, broken quests, save issues, progression blockers, or technical malfunctions.",
+    "content": "Amount, variety, or depth of missions, stages, maps, characters, modes, items, activities, or things to do.",
+    "controls": "Keyboard, mouse, controller input, responsiveness, key mapping, camera control, or control comfort.",
+    "difficulty_balance": "Difficulty, fairness, enemy strength, progression curve, grind, balance, challenge, or frustration from tuning.",
+    "gameplay": "Core play experience, mechanics, combat, movement, interaction, game loop, moment-to-moment fun, or how the game plays.",
+    "graphics": "Visual quality, art style, animation, visual effects, character design, environment design, or overall look.",
+    "monetization": "DLC, microtransactions, paid content, gacha, pay-to-win, pricing model, or monetization structure.",
+    "multiplayer": "Online play, co-op, PvP, matchmaking, servers, connection quality, player base, or multiplayer community.",
+    "other": "Important review content that does not clearly fit any other allowed topic.",
+    "performance": "FPS, lag, stuttering, optimization, loading speed, crashes due to performance, hardware requirements, or technical smoothness.",
+    "replayability": "Replay value, repeated play, multiple endings, long-term motivation, roguelike loops, or reasons to return after finishing.",
+    "story": "Narrative, plot, characters, writing, dialogue, lore, worldbuilding, emotional storytelling, or campaign story.",
+    "ui_ux": "Menus, interface, HUD, readability, tutorials, navigation, usability, onboarding, or user experience outside direct controls.",
+    "updates_support": "Patches, developer support, updates, roadmap, maintenance, bug fixes after release, or post-launch support.",
+    "value": "Price, discount, worth the money, cost-benefit, whether the game is worth buying, or value for playtime.",
+    "localization": "Translation quality, language support, subtitles, text localization, voice localization, regional language issues, or problems caused by poor localization.",
+    "network_server": "Server stability, connection issues, disconnects, ping, latency, login problems, online service availability, or network-related technical issues."
+  },
+  "distinction_rules": [
+    "Use gameplay when the review discusses fun, mechanics, combat, movement, game loop, or how the game feels to play.",
+    "Use content when the review discusses amount of missions, maps, modes, items, stages, characters, or lack of things to do.",
+    "Use value when the review discusses price, discount, worth buying, value for money, or whether the game is worth the cost.",
+    "Use performance when the review discusses FPS, lag, optimization, loading, stuttering, or hardware-related smoothness.",
+    "Use bugs when the review discusses crashes, glitches, broken quests, errors, or progression blockers.",
+    "Use controls when the review discusses input, controller, keyboard, mouse, camera control, or responsiveness.",
+    "Use ui_ux when the review discusses menus, HUD, interface, readability, tutorials, navigation, or usability.",
+    "Use replayability when the review discusses playing again, long-term motivation, multiple endings, or repeated runs.",
+    "Use difficulty_balance when the review discusses fairness, challenge, grind, enemy strength, or balance.",
+    "A topic can appear in both positive_topics and negative_topics only when the review clearly praises and criticizes the same aspect.",
+    "Do not use a topic unless the review gives clear evidence for it.",
+    "Do not create new topics outside the allowed topic list.",
+    "Use localization when the review discusses translation, language support, subtitles, or poor localized text.",
+    "Use network_server when the review discusses server stability, connection problems, ping, latency, disconnects, or login/network issues.",
+    "Use multiplayer when the review discusses the design or experience of playing with other people; use network_server when the issue is technical connectivity or server reliability."
+  ]
+}

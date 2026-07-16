@@ -1,0 +1,8 @@
+total_rows: 987
+positive_empty_rows: 256
+negative_empty_rows: 411
+both_empty_rows: 65
+avg_positive_topics: 1.611
+avg_negative_topics: 1.2
+avg_total_topics: 2.811
+max_total_topics: 14
