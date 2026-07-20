@@ -270,3 +270,9 @@ services/b-review-analysis/reports/prompt_strategy_eval_embedding/
 
 # Local trained model outputs
 services/b-review-analysis/models/
+
+# B review batch inference artifacts
+services/b-review-analysis/data/predictions/review_topic_predictions_parts/
+services/b-review-analysis/data/predictions/review_topic_predictions_smoke/
+services/b-review-analysis/data/predictions/batch_inference.log
+services/b-review-analysis/deploy/lightning_b_api.zip
