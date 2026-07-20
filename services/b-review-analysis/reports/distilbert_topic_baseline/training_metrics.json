@@ -1,0 +1,33 @@
+{
+  "model_name": "distilbert-base-uncased",
+  "device": "MPS",
+  "train_rows": 1165,
+  "valid_rows": 122,
+  "num_labels": 38,
+  "epochs": 3.0,
+  "batch_size": 8,
+  "max_length": 256,
+  "threshold": 0.5,
+  "train_metrics": {
+    "train_runtime": 90.1221,
+    "train_samples_per_second": 38.781,
+    "train_steps_per_second": 4.86,
+    "total_flos": 204049989466656.0,
+    "train_loss": 0.3033269774423887,
+    "epoch": 3.0
+  },
+  "evaluation_metrics": {
+    "eval_loss": 0.23889881372451782,
+    "eval_micro_precision": 0.6229508196721312,
+    "eval_micro_recall": 0.10133333333333333,
+    "eval_micro_f1": 0.1743119266055046,
+    "eval_macro_precision": 0.01639344262295082,
+    "eval_macro_recall": 0.015873015873015872,
+    "eval_macro_f1": 0.016129032258064516,
+    "eval_exact_match": 0.040983606557377046,
+    "eval_runtime": 0.8436,
+    "eval_samples_per_second": 144.618,
+    "eval_steps_per_second": 9.483,
+    "epoch": 3.0
+  }
+}

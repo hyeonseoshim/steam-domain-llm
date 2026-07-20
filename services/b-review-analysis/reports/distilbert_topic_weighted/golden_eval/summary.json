@@ -1,0 +1,18 @@
+{
+  "model_dir": "services/b-review-analysis/models/distilbert_topic_weighted",
+  "golden_path": "services/b-review-analysis/data/annotations/topic_golden_dataset.csv",
+  "device": "mps",
+  "golden_rows": 285,
+  "num_labels": 38,
+  "threshold": 0.36,
+  "micro_precision": 0.3278829604130809,
+  "micro_recall": 0.5134770889487871,
+  "micro_f1": 0.40021008403361347,
+  "macro_precision": 0.19137619425671623,
+  "macro_recall": 0.2825056099431458,
+  "macro_f1": 0.20878249740828306,
+  "exact_match": 0.03508771929824561,
+  "true_labels_per_sample": 2.6035087719298247,
+  "predicted_labels_per_sample": 4.077192982456141,
+  "predicted_label_types": 31
+}

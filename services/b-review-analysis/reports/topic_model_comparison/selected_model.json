@@ -1,0 +1,12 @@
+{
+  "selected_experiment": "weighted_lora",
+  "selected_model": "Weighted LoRA",
+  "model_dir": "services/b-review-analysis/models/distilbert_topic_lora/merged_model",
+  "threshold": 0.39,
+  "selection_metric": "micro_f1",
+  "golden_micro_f1": 0.4749130650769995,
+  "golden_macro_f1": 0.32776405024630934,
+  "golden_exact_match": 0.07719298245614035,
+  "golden_rows": 285,
+  "notes": "Weighted LoRA achieved the best golden-set Micro F1 and Macro F1. The model is recall-oriented and tends to over-predict topics per review."
+}

@@ -1,0 +1,38 @@
+{
+  "model_name": "distilbert-base-uncased",
+  "experiment": "weighted_bce",
+  "device": "MPS",
+  "train_rows": 1165,
+  "valid_rows": 122,
+  "num_labels": 38,
+  "epochs": 5.0,
+  "batch_size": 8,
+  "max_length": 256,
+  "evaluation_threshold": 0.5,
+  "pos_weight_power": 0.5,
+  "max_pos_weight": 10.0,
+  "train_metrics": {
+    "train_runtime": 138.762,
+    "train_samples_per_second": 41.978,
+    "train_steps_per_second": 5.261,
+    "total_flos": 340790262145248.0,
+    "train_loss": 0.5261349736827694,
+    "epoch": 5.0
+  },
+  "evaluation_metrics": {
+    "eval_loss": 0.49890896677970886,
+    "eval_micro_precision": 0.5785714285714286,
+    "eval_micro_recall": 0.216,
+    "eval_micro_f1": 0.3145631067961165,
+    "eval_macro_precision": 0.16169590643274853,
+    "eval_macro_recall": 0.07695867959372116,
+    "eval_macro_f1": 0.09437849451814992,
+    "eval_exact_match": 0.040983606557377046,
+    "eval_predicted_labels_per_sample": 1.1475409836065573,
+    "eval_true_labels_per_sample": 3.0737704918032787,
+    "eval_runtime": 0.7749,
+    "eval_samples_per_second": 157.446,
+    "eval_steps_per_second": 10.324,
+    "epoch": 5.0
+  }
+}

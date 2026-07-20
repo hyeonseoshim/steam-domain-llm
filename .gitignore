@@ -267,3 +267,6 @@ services/b-review-analysis/data/pseudo_labels/rare_positive_target_verification.
 # Superseded prompt evaluation reports
 services/b-review-analysis/reports/prompt_strategy_eval/
 services/b-review-analysis/reports/prompt_strategy_eval_embedding/
+
+# Local trained model outputs
+services/b-review-analysis/models/
