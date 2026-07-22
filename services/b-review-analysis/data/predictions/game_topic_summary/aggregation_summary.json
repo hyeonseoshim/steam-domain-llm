@@ -1,0 +1,10 @@
+{
+  "input_files": 112,
+  "total_reviews": 555774,
+  "unique_appids": 88487,
+  "top_n": 3,
+  "internal_topic_count": 19,
+  "api_topic_count": 16,
+  "csv_path": "services/b-review-analysis/data/predictions/game_topic_summary/game_topic_summary.csv.gz",
+  "json_path": "services/b-review-analysis/data/predictions/game_topic_summary/game_topic_summary.json.gz"
+}
