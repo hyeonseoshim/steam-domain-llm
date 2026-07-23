@@ -4,7 +4,7 @@
 
 <p align="center">
   긴 게임 설명, 흩어진 리뷰, 근거가 부족한 추천, 복잡한 검색 조건을<br>
-  네 개의 독립적인 도메인 특화 LLM 파이프라인으로 해결합니다.
+  네 개의 독립적인 도메인 특화 LLM 파이프라인으로 나누고 하나의 서비스로 연결합니다.
 </p>
 
 <p align="center">
@@ -14,8 +14,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.12-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python 3.12" />
   <img src="https://img.shields.io/badge/API-FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white" alt="FastAPI" />
-  <img src="https://img.shields.io/badge/Inference-vLLM-7C3AED?style=flat-square" alt="vLLM" />
-  <img src="https://img.shields.io/badge/GPU-Modal_L4-111111?style=flat-square" alt="Modal L4" />
+  <img src="https://img.shields.io/badge/Tasks-A%20%7C%20B%20%7C%20C%20%7C%20D-7C3AED?style=flat-square" alt="Tasks A B C D" />
   <img src="https://img.shields.io/badge/Frontend-Vercel-000000?style=flat-square&logo=vercel&logoColor=white" alt="Vercel" />
 </p>
 
@@ -36,12 +35,12 @@ Steam에는 약 14만 개 이상의 게임이 있지만, 사용자가 자신에�
 
 ## 2. 네 개의 도메인 태스크
 
-| 파트 | 담당 | 태스크 | 사용자에게 제공하는 가치 |
-|---|---|---|---|
-| **A · 설명 요약** | 이정수 | 긴 게임 설명을 `장르 / 핵심플레이 / 특징`으로 요약 | “이 게임에서 무엇을 하는지” 빠르게 파악 |
-| **B · 리뷰 분석** | 심현서 | 리뷰의 감성과 16개 장단점 토픽을 분류·집계 | 사람들이 왜 좋아하고 불편해하는지 요약 |
-| **C · 동적 추천** | 유재현 | 최근 경험에 따라 변하는 사용자 성향과 추천 이유 생성 | 현재 취향에 맞는 게임과 그 근거 제공 |
-| **D · 조건 검색** | 성화섭 | 자연어에서 가격·장르·멀티플레이 등의 조건을 추출 | 복합 조건을 자연어 한 문장으로 검색 |
+| 파트 | 담당 | 태스크 | 사용자에게 제공하는 가치 | 통합 화면에서의 역할 |
+|---|---|---|---|---|
+| **A · 설명 요약** | 이정수 | 긴 게임 설명을 `장르 / 핵심플레이 / 특징`으로 요약 | “이 게임에서 무엇을 하는지” 빠르게 파악 | 일반 검색, 게임 설명 패널 |
+| **B · 리뷰 분석** | 심현서 | 리뷰의 감성과 장단점 토픽을 분류·집계 | 사람들이 왜 좋아하고 불편해하는지 요약 | 리뷰 분석 패널 |
+| **C · 동적 추천** | 유재현 | 최근 경험에 따라 변하는 사용자 성향과 추천 이유 생성 | 현재 취향에 맞는 게임과 그 근거 제공 | 개인화 추천, 추천 이유 카드 |
+| **D · 조건 검색** | 성화섭 | 자연어에서 가격·장르·멀티플레이 등의 조건을 추출 | 복합 조건을 자연어 한 문장으로 검색 | 조건 검색, 조건 충족 근거 카드 |
 
 각 파트의 모델, 데이터 구성과 평가 지표는 태스크 특성에 맞게 독립적으로 선택합니다.
 
@@ -53,11 +52,10 @@ Steam에는 약 14만 개 이상의 게임이 있지만, 사용자가 자신에�
 → 최대 30개 게임 검색 및 재정렬
 → 게임 선택
 → A 설명 요약 + B 리뷰 분석 패널 확인
-→ C가 추천한 게임은 C 성향 근거 패널도 함께 확인
 ```
 
 - 검색 결과는 우선 10개를 보여주고 필요할 때 최대 30개까지 펼칩니다.
-- D가 추출한 조건과 게임별 충족 근거는 검색 결과에서 바로 확인합니다.
+- C의 현재 성향과 게임별 추천 이유, D가 추출한 조건과 게임별 충족 근거는 검색 결과에서 바로 확인합니다.
 - 패널은 파트별로 독립 로딩되어 한 서버가 느리거나 중단되어도 다른 결과를 먼저 볼 수 있습니다.
 - 모든 데이터와 서비스는 Steam 원본 `appid`를 공통 연결 키로 사용합니다.
 
@@ -67,12 +65,14 @@ Steam에는 약 14만 개 이상의 게임이 있지만, 사용자가 자신에�
 flowchart LR
     U[사용자] --> F[Vercel Frontend]
     F --> G[Modal CPU Gateway]
-    G --> A[Part A<br/>Modal L4 · Search & Summary]
+    G --> AS[Part A Search API<br/>Modal L4]
+    G --> AP[Part A Summary API<br/>Modal L4]
     G --> B[Part B API<br/>Review Panel]
-    G --> C[Part C API<br/>Dynamic Search & Panel]
+    G --> C[Part C API<br/>Dynamic Recommendation]
     G --> D[Part D API<br/>Constraint Search]
 
-    A --> G
+    AS --> G
+    AP --> G
     B --> G
     C --> G
     D --> G
@@ -83,7 +83,7 @@ flowchart LR
 |---|---|
 | **Frontend** | 검색 모드 선택, 결과 카드, 통합 게임 패널, 예열·fallback 상태 표시 |
 | **CPU Gateway** | 파트별 요청 라우팅, `appid` 기반 결과 결합, 응답 형식 정규화 |
-| **Part A/B/C/D API** | 각 담당자가 독립 배포한 모델 서버를 공통 JSON 계약으로 연결 |
+| **Part A/B/C/D API** | 각 담당자가 독립 배포한 검색·추천·분석 서버를 공통 JSON 계약으로 연결 |
 
 게이트웨이는 모델 추론을 직접 수행하지 않는 얇은 오케스트레이션 계층입니다. 각 파트는 서로 다른 서버와 배포 주기를 유지하므로 한 파트의 장애가 전체 서비스 장애로 번지지 않도록 설계했습니다.
 
@@ -102,7 +102,7 @@ flowchart LR
 - 데이터 이해와 스키마: [Steam Dataset 2025 GitHub](https://github.com/vintagedon/steam-dataset-2025)
 - 공식 데이터 배포: [Zenodo record 17266923](https://zenodo.org/records/17266923)
 
-파트별 데이터는 중복·노이즈 제거, 형식 정규화, 개인정보 검토, Train/Validation/Test 분할을 거칩니다. 생성 태스크의 참조 답변과 분류·추출 라벨은 규칙 검사, 독립 모델 평가와 사람 검수를 조합해 품질을 관리합니다.
+파트별 데이터는 각 태스크에 맞춰 중복·노이즈 제거, 형식 정규화, 개인정보 검토, Train/Validation/Test 분할을 수행합니다. 구체적인 데이터 구축 기준과 검수 방식은 파트별 문서에서 별도로 기록합니다.
 
 ## 6. 학습과 평가 방식
 
@@ -115,49 +115,35 @@ flowchart LR
 | C 동적 추천 | 추천 적합성, 설명의 근거성, 사용자 상태 변화 반영 |
 | D 조건 검색 | 조건 추출 정확도, 검색 적합성, 하드 조건 준수율 |
 
-모든 파트가 공통으로 보고하는 것은 다음 세 가지입니다.
+파트 간 결과를 비교할 때는 최소한 다음 세 항목을 같은 형식으로 기록합니다.
 
 1. 베이스라인 대비 파인튜닝 성능 변화
 2. 출력 형식·유효성 준수율과 오류 사례
 3. 실제 서빙 환경의 응답시간과 자원 사용량
 
-## 7. 검색·서빙 설계
+## 7. 통합 API 계약
 
-Part A 검색은 약 14만 개 게임 색인에서 키워드와 의미를 함께 사용합니다.
+통합 화면은 각 파트의 내부 모델 구조를 강제하지 않고, 공개 HTTPS API와 `appid` 기반 응답만 공통 계약으로 사용합니다.
 
-```text
-자연어 질의
-→ BM25 키워드 검색
-→ BGE-M3 의미 검색
-→ Reciprocal Rank Fusion
-→ BGE Reranker 재정렬
-→ Top-K 게임 반환
-```
+| 파트 | 주요 API | 통합 결과 |
+|---|---|---|
+| A | 일반 검색, 설명 요약 | 검색 목록, 게임 설명 패널 |
+| B | `GET /panel` | 게임별 리뷰 감성·토픽 집계 |
+| C | 행동 이벤트, `GET /search` | 사용자 상태를 반영한 추천 목록과 이유 |
+| D | `GET /search` | 추출 조건, 조건 검색 결과와 충족 근거 |
 
-게임 설명 요약은 Qwen2.5-3B 기반 LoRA 모델을 vLLM으로 서빙합니다. 현재 배포는 Modal L4 GPU에서 CUDA Graph와 FP8 온라인 양자화를 사용하며, 요청이 없을 때 GPU를 종료하는 scale-to-zero 방식입니다.
+요청 타임아웃, 예열과 fallback은 파트별로 독립 처리합니다. 한 서버가 준비 중이거나 응답하지 않더라도 다른 검색 결과와 패널은 먼저 표시할 수 있습니다.
 
-- 검색 요청: 컨테이너 콜드스타트를 고려해 최대 120초 대기
-- 패널 요청: 요청당 25초, 예열 상태일 때 해당 패널만 자동 재시도
-- 파싱 실패·서버 미제공·예열 중 상태는 화면에서 명시적으로 구분
+## 8. 기술 구성
 
-이 시간은 목표 지연시간이 아니라 장애로 판단하기 전의 최대 허용시간입니다. 웜 상태에서는 가능한 한 빠른 응답을 목표로 합니다.
+공통 통합 계층은 FastAPI 기반 CPU 게이트웨이와 HTML/CSS/JavaScript 프론트엔드로 구성되며 Vercel에서 공개합니다. 모델, 학습 방법과 추론 인프라는 각 태스크에 맞게 독립적으로 선택합니다.
 
-## 8. 기술 스택
-
-| 영역 | 기술 |
+| 파트 | 핵심 구현 |
 |---|---|
-| Data / Training | Python, JSONL, LoRA/QLoRA, Hugging Face Transformers, PEFT |
-| Search | BM25, BGE-M3, BGE Reranker, RRF |
-| Inference | Qwen2.5-3B, vLLM, CUDA Graph, FP8 |
-| API / Gateway | FastAPI, Python standard HTTP client |
-| Infrastructure | Modal CPU/GPU, scale-to-zero, persistent Volume |
-| Frontend | HTML, CSS, Vanilla JavaScript, Vercel |
-
-## 9. 문서 안내
-
-- [통합 프론트](services/a-summary-search/frontend/index.html): A/B/C/D 통합 사용자 화면
-- [CPU 게이트웨이](services/a-summary-search/backend/demo_app.py): 검색·패널 라우팅과 fallback
-- [GPU 백엔드](services/a-summary-search/backend/gpu_backend.py): Part A 검색·실시간 요약 API
+| A | 키워드·의미 기반 검색, 구조화 게임 설명 요약 API |
+| B | 리뷰 감성·토픽 분석, 게임 단위 집계 API |
+| C | 행동 이력 기반 동적 추천, 사용자별 추천 이유 생성 |
+| D | 자연어 조건 추출, 필터링·재정렬 검색 |
 
 ---
 
