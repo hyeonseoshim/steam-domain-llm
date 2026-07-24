@@ -1,0 +1,26 @@
+{
+  "input_file": "all.jsonl",
+  "total": 4165,
+  "hard_fail_records": 0,
+  "soft_only_records": 28,
+  "clean_records": 4137,
+  "hard_rule_counts": {},
+  "soft_rule_counts": {
+    "S1_genre_latin": 9,
+    "S2_hype": 9,
+    "S3_long": 10
+  },
+  "overlap_short_desc": {
+    "note": "요약↔short_description char-3gram Jaccard. 낮을수록 복붙 아님(방어 지표).",
+    "min": 0.0,
+    "median": 0.0,
+    "mean": 0.008,
+    "p90": 0.027,
+    "p99": 0.075,
+    "max": 0.156,
+    "ge_0.5_count": 0
+  },
+  "flagged_count": 28,
+  "sample_size": 60,
+  "seed": 42
+}

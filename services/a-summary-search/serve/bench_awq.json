@@ -1,0 +1,24 @@
+{
+  "model": "part_a/serve/qwen2.5-3b-awq",
+  "quant": "awq",
+  "weight_gb": 2.06,
+  "vram_used_mib": 13983.0,
+  "kv_cache": {
+    "num_gpu_blocks": null,
+    "block_size": null,
+    "kv_tokens": null
+  },
+  "load_s": 16.3,
+  "latency_n": 32,
+  "prefill_ms_p50": 117.7151,
+  "prefill_ms_p95": 290.05,
+  "total_ms_p50": 6170.5163,
+  "total_ms_p95": 7812.6943,
+  "decode_tok_s_p50": 27.269,
+  "batch_throughput_tok_s": 624.9,
+  "batch_n": 416,
+  "format_ok": 412,
+  "format_bad": 4,
+  "est_cost_per_game_usd": 1.4e-05,
+  "est_cost_per_240k_usd": 3.26
+}

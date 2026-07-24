@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 분리 배포: 프론트는 Vercel(정적), API는 CPU 게이트웨이(Modal)로. content=게이트웨이 URL.
+     비우면 same-origin(게이트웨이가 이 페이지를 직접 서빙할 때도 동작). -->
+<meta name="api-base" content="https://jslblar080--steam-part-a-web.modal.run">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%F0%9F%8E%AE</text></svg>">
+<title>Steam 카탈로그 기반 게임 요약</title>
+<style>
+  :root{
+    --bg:#0b0e14; --surface:#141a23; --card:#1a2330; --card2:#0f151d; --border:#28323f;
+    --fg:#eaf0f6; --mut:#8b9bab; --acc:#5b8cff; --acc-dim:#2b3b63; --live:#3ecf8e;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; }
+  html{ background:var(--bg); }   /* 빠른 스크롤/오버스크롤 리페인트 시 흰 바탕 번쩍임 방지 */
+  body{ background:radial-gradient(1200px 600px at 70% -10%, #12203a 0%, var(--bg) 55%);
+        color:var(--fg); font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  a{ color:inherit; }
+  .layout{ display:flex; gap:28px; max-width:1080px; margin:0 auto; padding:34px 24px 90px; align-items:flex-start; }
+  .main{ flex:1; min-width:0; }
+  .aside{ width:238px; flex-shrink:0; position:sticky; top:34px; }
+  @media (max-width:940px){ .layout{ flex-direction:column-reverse; } .aside{ position:static; width:100%; } }
+
+  /* header */
+  .brand{ display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+  .logo{ width:30px; height:30px; border-radius:8px; background:linear-gradient(135deg,var(--acc),#7b5cff);
+         display:grid; place-items:center; font-size:16px; }
+  h1{ font-size:23px; font-weight:700; letter-spacing:-.02em; margin:0; }
+  .tag{ color:var(--mut); font-size:13.5px; margin:0 0 26px; }
+
+  /* cards / sections */
+  .card{ background:var(--surface); border:1px solid var(--border); border-radius:14px;
+         padding:20px; margin-bottom:18px; box-shadow:0 1px 0 rgba(255,255,255,.02) inset; }
+  .sec-h{ font-size:12px; font-weight:700; color:var(--mut); text-transform:uppercase;
+          letter-spacing:.08em; margin:0 0 14px; }
+  .steps{ margin:0 0 14px; padding:0; list-style:none; color:var(--mut); font-size:13.5px; }
+  .steps li{ position:relative; padding-left:16px; margin:4px 0; }
+  .steps li::before{ content:"•"; position:absolute; left:2px; color:var(--acc); }
+  .steps b{ color:var(--fg); font-weight:600; }
+
+  /* search */
+  .searchbar{ display:flex; gap:10px; }
+  input{ flex:1; background:var(--card2); border:1px solid var(--border); color:var(--fg);
+         border-radius:10px; padding:13px 15px; font:inherit; outline:none; }
+  input:focus{ border-color:var(--acc); box-shadow:0 0 0 3px rgba(91,140,255,.15); }
+  .btn{ background:var(--acc); color:#06101f; border:0; border-radius:10px; padding:0 22px;
+        font-weight:700; font-size:14px; cursor:pointer; white-space:nowrap; }
+  .btn:hover{ filter:brightness(1.08); } .btn:disabled{ opacity:.5; cursor:wait; }
+
+  /* result cards */
+  .lat{ color:var(--acc); font-size:12.5px; margin:14px 0 4px; font-variant-numeric:tabular-nums; }
+  .lat b{ font-weight:700; }
+  .legend{ color:var(--mut); font-size:11.5px; margin:0 0 8px; }
+  .legend b{ color:#9cc0ff; font-weight:600; }
+  .item{ background:var(--card); border:1px solid var(--border); border-radius:12px;
+         padding:13px 15px; margin-top:10px; transition:border-color .15s; }
+  .item:hover{ border-color:#3a4a5e; }
+  .item .top{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; }
+  .item .nm{ font-weight:650; font-size:15px; }
+  .item .aid{ color:var(--mut); font-size:12px; font-weight:400; margin-left:6px; }
+  .badge{ background:var(--acc-dim); color:#bcd0ff; font-size:12px; font-weight:700;
+          padding:3px 9px; border-radius:20px; font-variant-numeric:tabular-nums; flex-shrink:0; }
+  .fields{ margin-top:7px; }
+  .fields .f{ color:var(--mut); font-size:13px; margin:2px 0; }
+  .fields .f b{ color:#9cc0ff; font-weight:600; margin-right:5px; }
+  .regen{ margin-top:11px; background:none; border:1px solid var(--acc); color:var(--acc);
+          padding:6px 12px; border-radius:8px; font-size:12.5px; font-weight:600; cursor:pointer; }
+  .regen:hover{ background:rgba(91,140,255,.1); }
+  .regen:disabled{ opacity:.45; cursor:wait; }
+  .integ{ border-color:#7b5cff; color:#b3a4ff; margin-left:8px; }
+  .integ:hover{ background:rgba(123,92,255,.12); }
+  .tabs{ display:flex; gap:6px; margin-bottom:10px; }
+  .tab{ background:var(--card); border:1px solid var(--border); color:var(--mut); border-radius:8px;
+        padding:6px 13px; font-size:13px; cursor:pointer; }
+  .tab.on{ border-color:var(--acc); color:var(--fg); background:rgba(91,140,255,.12); font-weight:600; }
+  .item .reason{ color:#b3a4ff; font-size:12.5px; margin:5px 0 0; }
+  .modenote{ color:var(--warn); font-size:12px; margin:8px 0 2px; }
+  .modeinfo{ color:#9cc0ff; font-size:12px; margin:8px 0 2px; }
+  .more{ display:block; width:100%; margin-top:14px; background:none; border:1px dashed var(--border);
+         color:var(--acc); padding:11px; border-radius:10px; font-size:13px; font-weight:600; cursor:pointer; }
+  .more:hover{ border-color:var(--acc); background:rgba(91,140,255,.06); }
+
+  .note{ color:var(--mut); font-size:13px; }
+
+  /* 팀 통합(MSA) 게임 상세 — appid 페더레이션 */
+  .igrid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; align-items:start; }
+  @media (max-width:560px){ .igrid{ grid-template-columns:1fr; } }
+  .gpanel{ background:var(--card); border:1px solid var(--border); border-radius:12px; padding:13px 15px; }
+  .gpanel.ok{ border-color:rgba(62,207,142,.35); }
+  .gpanel.wait{ border-style:dashed; opacity:.9; }
+  .gph{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:9px; }
+  .gph .gt{ font-size:13px; font-weight:700; }
+  .gph .go{ color:var(--mut); font-size:11.5px; font-weight:400; margin-left:5px; }
+  .st{ font-size:10.5px; font-weight:700; padding:2px 8px; border-radius:20px; letter-spacing:.02em; flex-shrink:0; }
+  .st-ok{ background:rgba(62,207,142,.15); color:var(--live); }
+  .st-mock{ background:rgba(245,182,74,.15); color:var(--warn); }
+  .st-unavailable{ background:var(--card2); color:var(--mut); }
+  .st-error{ background:rgba(255,107,107,.15); color:#ff8b8b; }
+  .gpanel .f{ color:var(--mut); font-size:13px; margin:3px 0; }
+  .gpanel .f b{ color:#9cc0ff; font-weight:600; margin-right:5px; }
+  .gpanel.ok .f b{ color:var(--live); }
+  .gpwait{ margin-top:8px; padding-top:8px; border-top:1px dashed var(--border);
+           color:var(--mut); font-size:11.5px; }
+  .gpwait code{ background:var(--card2); border:1px solid var(--border); border-radius:5px;
+                padding:1px 5px; color:#bcd0ff; font-size:11px; }
+
+  /* aside — 시스템 현황 (sticky) */
+  .panel{ background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:18px; }
+  .panel + .panel{ margin-top:16px; }
+  .panel .pt{ font-size:12px; font-weight:700; color:var(--mut); text-transform:uppercase;
+              letter-spacing:.08em; margin-bottom:14px; }
+  .chip{ display:inline-flex; align-items:center; gap:6px; background:var(--card2); border:1px solid var(--border);
+         border-radius:20px; padding:4px 11px; font-size:12.5px; font-weight:600; margin-bottom:16px; }
+  .chip .dot{ width:7px; height:7px; border-radius:50%; background:var(--live); box-shadow:0 0 6px var(--live); }
+  .pvram{ font-size:19px; font-weight:700; font-variant-numeric:tabular-nums; }
+  .gpuunit + .gpuunit{ margin-top:17px; padding-top:16px; border-top:1px solid var(--border); }
+  .gpuhead{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:7px; }
+  .gpulabel{ color:var(--mut); font-size:12px; font-weight:700; letter-spacing:.03em; }
+  .gpuhead .chip{ margin:0; padding:3px 9px; font-size:11.5px; }
+  .pbar{ height:7px; background:var(--card2); border-radius:5px; overflow:hidden; margin:8px 0 4px; }
+  .pbar>i{ display:block; height:100%; width:0; border-radius:5px;
+           background:linear-gradient(90deg,var(--acc),#7b5cff); transition:width .5s; }
+  .pbar.summary>i{ background:linear-gradient(90deg,var(--live),#32b5d9); }
+  .ppct{ font-size:12px; color:var(--mut); text-align:right; font-variant-numeric:tabular-nums; }
+  .pcap{ font-size:11px; color:var(--mut); line-height:1.45; margin-top:6px; opacity:.85; }
+  .prow{ display:flex; justify-content:space-between; align-items:center; margin:7px 0; font-size:14px; }
+  .prow span{ color:var(--mut); }
+  .prow b{ font-weight:700; font-variant-numeric:tabular-nums; }
+  .prow .pv{ display:flex; align-items:baseline; gap:8px; color:var(--fg); }  /* 세션값(밝게)+누적(뮤트) */
+  .agg{ font-size:11.5px; color:var(--mut); font-variant-numeric:tabular-nums; }
+  .pcap .reset{ color:var(--acc); margin-left:6px; text-decoration:none; }
+  .pcap .reset:hover{ text-decoration:underline; }
+
+  /* cold-start 상태 배너 (scale-to-zero 백엔드 깨어남 대기) */
+  .banner{ display:none; border-radius:11px; padding:11px 15px; font-size:13px; margin-bottom:18px; }
+  .banner.warn{ display:block; background:rgba(245,182,74,.12); border:1px solid rgba(245,182,74,.4); color:#f5c977; }
+  .banner.warm{ display:block; background:rgba(91,140,255,.1); border:1px solid var(--acc-dim); color:#9cc0ff; }
+</style>
+</head>
+<body>
+<div class="layout">
+  <div class="main">
+    <div class="brand"><div class="logo">🎮</div><h1>Steam 카탈로그 기반 게임 요약</h1></div>
+    <p class="tag">게임을 검색하고, 원문에서 요약을 생성합니다.</p>
+    <div id="connBanner" class="banner"></div>
+
+    <section class="card">
+      <div class="sec-h">카탈로그 검색</div>
+      <div class="tabs">
+        <button class="tab on" data-mode="A" onclick="setMode('A',this)">🔍 A · 일반 검색</button>
+        <button class="tab" data-mode="C" onclick="setMode('C',this)">🎯 C · 취향 추천</button>
+        <button class="tab" data-mode="D" onclick="setMode('D',this)">🎛 D · 조건 검색</button>
+      </div>
+      <div class="searchbar">
+        <input id="q" placeholder="어떤 게임을 찾으세요? 예) 카드 로그라이크 덱빌딩 게임" autofocus>
+        <button class="btn" id="sBtn" onclick="doSearch()">검색</button>
+      </div>
+      <div id="uidCap" class="pcap" style="display:none;margin-top:6px"></div>
+      <div id="sOut"></div>
+    </section>
+
+    <section class="card">
+      <div class="sec-h">팀 통합 게임 상세</div>
+      <ul class="steps">
+        <li>Part A 일반 검색에는 LLM을 사용하지 않습니다 — 임베딩·BM25·리랭커로만 찾습니다.</li>
+        <li><b>🧩 통합 상세</b> — <b>appid</b>를 기준으로 A 요약과 B 리뷰토픽을 함께 불러옵니다.</li>
+        <li>C·D 검색 결과 카드 — C 추천 근거와 D 조건 충족 근거를 바로 확인할 수 있습니다.</li>
+      </ul>
+      <div id="gOut"><div class="note">검색 결과에서 <b>🧩 통합 상세</b>를 눌러 보세요.</div></div>
+    </section>
+  </div>
+
+  <aside class="aside">
+    <div class="panel">
+      <div class="pt">Part A GPU VRAM · 최근 응답</div>
+      <div class="gpuunit">
+        <div class="gpuhead"><span class="gpulabel">검색 GPU</span><span class="chip"><span class="dot"></span><span id="searchDev">검색 실행 전</span></span></div>
+        <div class="pvram" id="searchVram">–</div>
+        <div class="pbar"><i id="searchBar"></i></div>
+      </div>
+      <div class="gpuunit">
+        <div class="gpuhead"><span class="gpulabel">실시간 요약 GPU</span><span class="chip"><span class="dot"></span><span id="summaryDev">요약 실행 전</span></span></div>
+        <div class="pvram" id="summaryVram">–</div>
+        <div class="pbar summary"><i id="summaryBar"></i></div>
+      </div>
+      <div class="pcap">Part A의 검색과 실시간 요약은 서로 다른 L4에서 실행됩니다. GPU를 깨우는 상시 폴링 없이 각 응답 시점의 사용량만 표시합니다.</div>
+    </div>
+    <div class="panel">
+      <div class="pt">처리 요청</div>
+      <div class="pcap" style="margin-top:3px;margin-bottom:0">이 세션 · <span class="agg">누적 = 전체 사용자</span></div>
+      <div class="pcap" id="statSince" style="margin-top:2px;margin-bottom:12px">집계 시작 —</div>
+      <div class="prow"><span>검색</span><span class="pv"><b id="statSearch">0</b><span class="agg" id="aggSearch"></span></span></div>
+      <div class="prow"><span>통합 상세</span><span class="pv"><b id="statGame">0</b><span class="agg" id="aggGame"></span></span></div>
+      <div class="prow"><span>거절 (혼잡·백프레셔)</span><span class="pv"><b id="statRejected">0</b><span class="agg" id="aggRejected"></span></span></div>
+    </div>
+  </aside>
+</div>
+
+<script>
+// API base — Vercel 정적 프론트가 별도 GPU 백엔드를 호출할 수 있게. meta[api-base] 비면 same-origin.
+const API = ((document.querySelector('meta[name="api-base"]')||{}).content || '').replace(/\/+$/,'');
+const api = p => API + p;
+const esc = s => (s||"").replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const fld = (l,v) => v ? `<div class="f"><b>${l}</b>${esc(v)}</div>` : '';
+const cardHtml = r => { const s = r.summary || {}; const reasonIcon = _resMode==='D' ? '🎛' : '🎯';
+  const score = r.score == null ? '' :
+  `<span class="badge" title="질의 관련도 점수">${esc(String(r.score))}</span>`; return `<div class="item">
+    <div class="top"><div class="nm">${r.rank}. ${esc(r.name)||'(무명)'}<span class="aid">#${r.appid}</span></div>
+      ${score}</div>
+    ${r.reason?`<div class="reason">${reasonIcon} ${esc(r.reason)}</div>`:''}
+    <div class="fields">${fld('장르', s['장르'])}${fld('핵심플레이', s['핵심플레이'])}${fld('특징', s['특징'])}</div>
+    <button class="regen integ" onclick="showGame(${r.appid}, this)">🧩 통합 상세</button></div>`; };
+
+// 리랭커가 후보 30개를 모두 재점수하므로 30개를 한 번에 받아두고(지연 동일),
+// 기본은 상위 10개만, '더 보기'로 11~30위까지 펼친다.
+let _res = [], _latMs = 0, _wallMs = 0, _q = '', _mode = 'A', _mock = false, _modeNote = '', _resMode = 'A';
+// 처리 요청 = 클라이언트 집계. 서버 인메모리 카운터는 scale-to-zero로 리셋되고 컨테이너 분산·남의 요청까지
+// 섞여 신뢰 불가 → 내 세션 행동만 정확·즉시 반영. 거절은 A 패널 백프레셔 폴백 note 로 감지.
+let _cntSearch = 0, _cntGame = 0, _cntRejected = 0;
+function bumpStat(id, n){ const el = document.getElementById(id); if(el) el.textContent = n; }
+{ const el = document.getElementById('statSince');
+  if(el) el.textContent = '집계 시작 ' + new Date().toLocaleString('ko-KR',{hour12:false}); }
+// C(개인화)용 익명 영속 유저 id — localStorage(기기/브라우저)라 컨테이너 재가동 무관, 새로고침·재방문에 유지.
+function _mintUid(){ return 'u-'+Math.random().toString(36).slice(2,10)+Date.now().toString(36); }
+let _uid = localStorage.getItem('steamq_uid'); if(!_uid){ _uid=_mintUid(); localStorage.setItem('steamq_uid',_uid); }
+function updateUidCap(){ const el=document.getElementById('uidCap');
+  if(el) el.innerHTML='🎯 이 기기 성향 id · <code>'+esc(_uid)+'</code> <a href="#" class="reset" onclick="resetUid();return false">새 성향</a>'; }
+function resetUid(){ _uid=_mintUid(); localStorage.setItem('steamq_uid',_uid); updateUidCap();
+  if(_mode==='C') document.getElementById('sOut').innerHTML=''; }   // 새 성향=이력0으로 리셋(결과 비움)
+updateUidCap();
+
+const PH = {A:'어떤 게임을 찾으세요? 예) 카드 로그라이크 덱빌딩 게임',
+            C:'키워드(선택) · 비우면 취향만으로 추천',
+            D:'예) 친구들과 할 수 있는 무료 협동 공포 게임을 찾아줘'};
+const BTN = {A:'검색', C:'취향으로 추천', D:'조건 검색'};
+function setMode(m, btn){
+  const changed = _mode!==m;
+  _mode = m;
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('on', t.dataset.mode===m));
+  document.getElementById('q').placeholder = PH[m];
+  document.getElementById('sBtn').textContent = BTN[m];
+  document.getElementById('uidCap').style.display = (m==='C') ? 'block' : 'none';   // uid는 C 모드일 때만 표시
+  // 탭은 검색 방식만 선택한다. 실제 요청·행동 수집은 버튼 클릭 또는 Enter에서만 발생한다.
+  // 이전 모드의 결과를 새 모드 결과처럼 오해하지 않도록 실행 안내로 교체한다.
+  if(changed && _res.length){
+    document.getElementById('sOut').innerHTML =
+      `<div class="note" style="margin-top:12px">${esc(BTN[m])} 버튼을 눌러 결과를 불러오세요.</div>`;
+  }
+}
+async function doSearch(){
+  const q = document.getElementById('q').value.trim();
+  if(!q && _mode !== 'C') return;   // C는 빈 질의 허용(성향만으로 추천)
+  _q = q;  // 통합 상세에서 질의의존 파트(D 등)에 원 질의를 넘기기 위해 보관
+  startPolling();  // 첫 검색부터 상태 폴링 시작(구경만 할 땐 안 깨움)
+  const b = document.getElementById('sBtn'), out = document.getElementById('sOut');
+  b.disabled = true; out.innerHTML = '<div class="note" style="margin-top:12px">검색 중…</div>';
+  try {
+    const t0 = performance.now();  // client-side 왕복 — 서버 latency_ms 엔 네트워크 미포함
+    const url = '/search?mode='+_mode+'&q='+encodeURIComponent(q)+'&k=30&uid='+encodeURIComponent(_uid);
+    const r = await (await fetch(api(url))).json();
+    _wallMs = Math.round(performance.now() - t0);
+    _res = r.results || []; _latMs = r.latency_ms; _mock = !!r.mock; _modeNote = r.note || '';
+    _resMode = _mode;
+    if(r.gpu) updateGpu(r.gpu, 'search');
+    if(!r.error){ _cntSearch++; bumpStat('statSearch', _cntSearch); }  // 클라이언트 집계(성공만)
+    renderResults(false);
+  } catch(e){ out.innerHTML = '<div class="note">오류: '+esc(''+e)+'</div>'; }
+  b.disabled = false;
+}
+// 검색/A 응답에 실려온 GPU 상태로 VRAM 미터 갱신(유휴 폴링이 GPU 깨우는 것 방지).
+function updateGpu(g, role){
+  if(!g || !g.vram_total_mb) return;
+  const prefix = role === 'summary' ? 'summary' : 'search';
+  document.getElementById(prefix+'Dev').textContent = g.device || '—';
+  document.getElementById(prefix+'Vram').textContent =
+    (g.vram_used_mb/1024).toFixed(1) + ' / ' + (g.vram_total_mb/1024).toFixed(1) + ' GB';
+  document.getElementById(prefix+'Bar').style.width = g.vram_pct + '%';
+}
+
+function renderResults(expanded){
+  const out = document.getElementById('sOut');
+  if(!_res.length){ out.innerHTML = '<div class="note" style="margin-top:12px">결과 없음</div>'; return; }
+  const n = expanded ? _res.length : Math.min(10, _res.length);
+  const MODE_LBL = {A:'일반 검색', C:'내 취향 추천', D:'조건 검색'};
+  const lat = `<div class="lat">⚡ ${MODE_LBL[_mode]||'검색'} · 왕복 <b>${_wallMs}</b> ms${_latMs!=null?` (리랭크 계산 <b>${_latMs}</b> ms)`:''} · 상위 <b>${n}</b>개 (후보 ${_res.length}개)</div>`;
+  const mnote = _modeNote
+    ? `<div class="${_mock?'modenote':'modeinfo'}">${_mock?'🔌':'🧭'} ${esc(_modeNote)}</div>`
+    : (_mock ? '<div class="modenote">🔌 예시 — 팀원 서버 연동 전</div>' : '');
+  const LEGEND = {
+    A:'우측 점수 = 질의 <b>관련도</b> · 카드 순서는 관련도에 <b>인기도</b>를 반영 (점수가 꼭 내림차순은 아님)',
+    C:'우측 점수 = C 모델의 <b>현재 성향 적합도</b>',
+    D:'우측 점수 = D 모델의 <b>조건·의미 적합도</b>'};
+  const legend = _mock ? '' : `<div class="legend">${LEGEND[_mode]||''}</div>`;
+  const cards = _res.slice(0, n).map(cardHtml).join('');
+  const more = (!expanded && _res.length > 10)
+    ? `<button class="more" onclick="renderResults(true)">▾ 더 보기 · 11–${_res.length}위 (${_res.length-10}개 더)</button>` : '';
+  out.innerHTML = lat + mnote + legend + cards + more;
+}
+
+// 팀 통합: appid로 4파트 패널을 모아 게임 상세로 합친다. A는 파인튜닝 모델 실시간 생성,
+// 나머지는 팀원 파일/서버 연동 전이면 '예시/미제공'으로 명시하고 채울 계약 엔드포인트를 노출.
+const ST = { ok:['st-ok','실데이터'], mock:['st-mock','예시'],
+             unavailable:['st-unavailable','미제공 · 연동 대기'], error:['st-error','오류'] };
+function panelHtml(p){
+  const [cls, txt] = ST[p.status] || ST.unavailable;
+  const rows = (p.fields||[]).map(f => `<div class="f"><b>${esc(f.k)}</b>${esc(f.v)}</div>`).join('')
+            || '<div class="f">표시할 내용이 아직 없습니다.</div>';
+  // A 외 파트의 실패를 무조건 "예열/연동 대기"로 단정하지 않는다.
+  const wait = (p.part!=='A' && p.status!=='ok')
+    ? `<div class="gpwait">🔌 ${esc(p.note || '팀원 서버 응답을 확인할 수 없습니다.')}</div>` : '';
+  // A(내 파트)는 파인튜닝 모델 실시간 생성 — 왕복(브라우저 client)과 순수 생성(GPU gen_ms)을 분리 표기.
+  // 검색 칩과 같은 기준: 왕복=브라우저 wall-clock, 괄호=순수 서버 계산.
+  const atime = p._wallMs!=null
+    ? ` · 왕복 ${p._wallMs} ms` + (p.gen_ms!=null ? ` (생성 ${p.gen_ms} ms)` : '')
+    : (p.latency_ms!=null ? ' · '+p.latency_ms+' ms' : '');
+  const anote = (p.part==='A' && p.note)
+    ? `<div class="gpwait">${esc(p.note)}${atime}</div>` : '';
+  const box = p.status==='ok' ? 'ok' : (p.status==='error' ? '' : 'wait');
+  return `<div class="gpanel ${box}">
+    <div class="gph"><div class="gt">${esc(p.label)}<span class="go">${esc(p.owner)}</span></div>
+      <span class="st ${cls}">${txt}</span></div>
+    ${rows}${wait}${anote}</div>`;
+}
+// 스켈레톤 카드(로딩 자리). id=gp-{part} 로 두고, 각 파트가 도착하면 그 자리만 교체한다.
+function skeletonHtml(p){
+  return `<div class="gpanel wait" id="gp-${p.part}">
+    <div class="gph"><div class="gt">${esc(p.label)}<span class="go">${esc(p.owner)}</span></div>
+      <span class="st st-unavailable">불러오는 중…</span></div>
+    <div class="f">⏳ 데이터를 가져오는 중…</div></div>`;
+}
+// 파트 하나를 독립적으로 로드 → 준비되는 대로 해당 칸만 실데이터로 교체(다른 파트와 무관).
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+// 방어적 파싱 — 모달 콜드스타트/프록시 에러는 비-JSON("modal-http…")이라 그냥 .json()하면 SyntaxError.
+async function fetchPanelJSON(url, signal){
+  try { const res = await fetch(url, {signal}); const txt = await res.text();
+        try { return JSON.parse(txt); } catch(_){ return null; }   // null = 비-JSON(콜드/프록시)
+  } catch(e){ return e && e.name==='AbortError' ? {__aborted:true} : null; }
+}
+function warmingHtml(p, i, maxTry){
+  const isA = p.part==='A';
+  return `<div class="gpanel wait" id="gp-${p.part}">
+    <div class="gph"><div class="gt">${esc(p.label)}<span class="go">${esc(p.owner)}</span></div>
+      <span class="st st-unavailable">${isA?'GPU 예열 중…':'응답 대기 중…'}</span></div>
+    <div class="f">⏳ ${isA?'실시간 요약 모델 준비 중':'서버 상태 확인'} · 자동 재시도 ${i}/${maxTry}</div></div>`;
+}
+// 파트 하나 로드 → A는 명시적 예열을 재시도, B는 1회, 유형 미확정 C·D는 제한 재시도한다.
+// 어떤 경우에도 상세 이동을 잠그지 않으며, 이전 게임의 늦은 응답은 runId로 폐기한다.
+async function fillPanel(appid, p, runId, signal){
+  if(runId!==_detailRun || signal.aborted || !document.getElementById('gp-'+p.part)) return;
+  const qs = new URLSearchParams(); if(_q) qs.set('q', _q); qs.set('uid', _uid);   // uid=C 개인화(기기 UUID)
+  const url = api('/game/'+appid+'/panel/'+p.part+'?'+qs.toString());
+  const maxTry = p.part==='A' ? 40 : (p.part==='C' || p.part==='D' ? 3 : 1);
+  for(let i=1;i<=maxTry;i++){
+    const t0 = performance.now();
+    const r = await fetchPanelJSON(url, signal);
+    if(runId!==_detailRun || signal.aborted || (r && r.__aborted)) return;
+    const cell = document.getElementById('gp-'+p.part);
+    if(!cell) return;
+    // 예열 신호 = 비-JSON(null) 또는 예열/미응답/timeout note. 일반 데이터 없음은 재시도하지 않는다.
+    const warming = (r === null) || /예열|미응답|timeout/i.test(r.note||'');
+    if(warming && i < maxTry){
+      cell.outerHTML = warmingHtml(p, i, maxTry);
+      await sleep(3000);
+      if(runId!==_detailRun || signal.aborted) return;
+      continue;
+    }
+    if(r === null){
+      const note = p.part==='A'
+        ? 'GPU 예열 지연 — 잠시 후 다시 눌러 주세요'
+        : (p.part==='B' ? '응답 실패 — B 서버 연결을 확인해 주세요'
+                       : '응답 지연 — 잠시 후 통합 상세를 다시 눌러 주세요');
+      cell.outerHTML = panelHtml({part:p.part, label:p.label, owner:p.owner, status:'unavailable', fields:[],
+        note});
+      return;
+    }
+    r._wallMs = Math.round(performance.now() - t0);
+    if(r.gpu) updateGpu(r.gpu, 'summary');
+    // 거절 = A가 라이브 생성 못 하고 색인 폴백(혼잡·백프레셔·VRAM부족). '예열 중'은 거절 아님(위 warming서 재시도).
+    if(p.part==='A' && r.note && /혼잡|백프레셔|여유 부족/.test(r.note)){ _cntRejected++; bumpStat('statRejected', _cntRejected); }
+    cell.outerHTML = panelHtml(r);
+    return;
+  }
+}
+let _detailRun = 0;
+let _detailAbort = null;
+async function showGame(appid, btn){
+  const runId = ++_detailRun;
+  if(_detailAbort) _detailAbort.abort();
+  const controller = new AbortController(); _detailAbort = controller;
+  _cntGame++; bumpStat('statGame', _cntGame);   // 클라이언트 집계(통합상세 클릭)
+  startPolling();  // 첫 상호작용부터 상태 폴링(구경만 할 땐 안 깨움)
+  if(btn && !btn.dataset.defaultLabel) btn.dataset.defaultLabel = btn.textContent;
+  if(btn) btn.textContent = '⏳ 통합 중…';
+  const out = document.getElementById('gOut');
+  (out.closest('section') || out).scrollIntoView({behavior:'smooth', block:'start'});
+  out.innerHTML = '<div class="note">파트 목록을 불러오는 중…</div>';
+  // 게임명은 게이트웨이(parts)가 아니라 검색결과에서(게이트웨이는 검색 인덱스가 없음).
+  const found = _res.find(r => r.appid === appid); const gname = found ? found.name : '';
+  // A/C/D 어느 검색 결과에서든 상세를 누르면 동일한 C 사용자 이력에 관심 행동을 쌓는다.
+  // 추천 화면은 이벤트 저장을 기다리지 않도록 fire-and-forget으로 보낸다.
+  void fetch(api('/events/click'), {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({userId:_uid, appid:appid, game_name:gname||null})
+  }).catch(()=>{});
+  // (VRAM 계기판은 A 응답에 실려온 값으로 갱신 — fillPanel. 생성 중 라이브 폴링은 지연 유발로 제거.)
+  try {
+    const meta = await (await fetch(api('/game/'+appid+'/parts?source='+_resMode), {signal:controller.signal})).json();
+    if(runId!==_detailRun || controller.signal.aborted) return;
+    const parts = meta.parts || [];
+    // 화면은 즉시: 스켈레톤을 먼저 그리고, 각 파트를 병렬로 개별 로드한다.
+    out.innerHTML = `<div class="lat">🧩 통합 상세 · #${appid} ${esc(gname)} · ${parts.length}개 파트 (준비되는 대로 표시)</div>
+      <div class="igrid">${parts.map(skeletonHtml).join('')}</div>`;
+    // 패널은 백그라운드에서 독립 갱신한다. 사용자는 완료를 기다리지 않고 다른 게임으로 이동할 수 있다.
+    void Promise.allSettled(parts.map(p => fillPanel(appid, p, runId, controller.signal)));
+  } catch(e){
+    if(runId===_detailRun && (!e || e.name!=='AbortError'))
+      out.innerHTML = '<div class="note">오류: '+esc(''+e)+'</div>';
+  }
+  finally {
+    if(btn) btn.textContent = btn.dataset.defaultLabel || '🧩 통합 상세';
+  }
+}
+document.getElementById('q').addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
+
+const _banner = document.getElementById('connBanner');
+function setBanner(kind, msg){ _banner.className = 'banner' + (kind ? ' '+kind : ''); _banner.textContent = msg||''; }
+async function pollStats(){
+  // 게이트웨이 /stats = 연결 배너 + 누적 총량(modal.Dict 공유·영속, 전체 사용자). 세션값은 클라이언트가 소유.
+  const agg = (id, v) => { const el = document.getElementById(id); if(el) el.textContent = '누적 ' + (v??0).toLocaleString(); };
+  try {
+    const s = await (await fetch(api('/stats'))).json();
+    const t = s.totals || {};
+    agg('aggSearch', t.search); agg('aggGame', t.game); agg('aggRejected', t.rejected);
+    setBanner('', '');   // 게이트웨이 응답 = 연결됨
+  } catch(e){
+    setBanner('warn', '⏳ 게이트웨이에 연결 중… 잠시 후 자동 재시도합니다.');
+  }
+}
+// 폴링은 (1)검색/통합상세 첫 클릭 후 (2)탭 보일 때만 — 그냥 구경만 하면 백엔드 안 깨움(과금 0).
+let _statsTimer = null, _pollWanted = false;
+function startPolling(){ _pollWanted = true; if(!_statsTimer && !document.hidden){ pollStats(); _statsTimer = setInterval(pollStats, 3000); } }
+function stopPolling(){ if(_statsTimer){ clearInterval(_statsTimer); _statsTimer = null; } }
+document.addEventListener('visibilitychange', () => { if(document.hidden) stopPolling(); else if(_pollWanted) startPolling(); });
+// 로드 시 자동 폴링 없음 — doSearch/showGame 이 startPolling() 호출.
+</script>
+</body>
+</html>

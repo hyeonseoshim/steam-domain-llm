@@ -1,0 +1,88 @@
+{
+  "jobs": [
+    {
+      "chunk": 0,
+      "file": "files/hvap4003xzmw",
+      "job": "batches/no870ri5vsew6ssamkhynw2rd3fqnwc0uqzx",
+      "collected": true
+    },
+    {
+      "chunk": 1,
+      "file": "files/olgcqzntizmj",
+      "job": "batches/sd57eamf7n9ecasln4n54fray5txdfj873ul",
+      "collected": true
+    },
+    {
+      "chunk": 2,
+      "file": "files/1g8ejn2xhbr3",
+      "job": "batches/ri4hoi7hzw8nxad8ozyp2whvwapl2z2z22b7",
+      "collected": true
+    },
+    {
+      "chunk": 3,
+      "file": "files/fqptxesaucmo",
+      "job": "batches/fbnxwwzacxfgtewpgpvx8wd5sd3tilnwwif5",
+      "collected": true
+    },
+    {
+      "chunk": 4,
+      "file": "files/nuc6tqxpwsqc",
+      "job": "batches/59sfcl1qdrjuespnoh1szn8w8ufiqva02yz7",
+      "collected": true
+    },
+    {
+      "chunk": 5,
+      "file": "files/1k7v0t79hba5",
+      "job": "batches/oqfxf55j8372mqqigkllhtq75q2w7h1zx1i3",
+      "collected": true
+    },
+    {
+      "chunk": 6,
+      "file": "files/t51dikmefi1t",
+      "job": "batches/lrwwx6f377ci8lrmjzwwd8niy1duksch4awm",
+      "collected": true
+    },
+    {
+      "chunk": 7,
+      "file": "files/vq791o6ylf1v",
+      "job": "batches/26xa8uj9zw2upacoj36w5uverrm275m86dbm",
+      "collected": true
+    },
+    {
+      "chunk": 8,
+      "file": "files/1kytkx9u2o5o",
+      "job": "batches/p3a7o7r9whefb4fcjb90fq2lc2ouywxu174b",
+      "collected": true
+    },
+    {
+      "chunk": 9,
+      "file": "files/hvci1y0gth5u",
+      "job": "batches/ptz3zkh7u243lmkyztbg7nzyw2f16iiq1im9",
+      "collected": true
+    },
+    {
+      "chunk": 10,
+      "file": "files/2knqbo8c7007",
+      "job": "batches/vpsesp1ucod719itzv8nc3mchdhundx6lpvr",
+      "collected": true
+    },
+    {
+      "chunk": 11,
+      "file": "files/jwwpoqs3ddr4",
+      "job": "batches/nruaeg2am592l9a92auewcfwnc19dh1lwcy9",
+      "collected": true
+    },
+    {
+      "chunk": 12,
+      "file": "files/k4dsk8bnm5jd",
+      "job": "batches/hib8q3svko6etnpng0782da5jquynpjor6qh",
+      "collected": true
+    },
+    {
+      "chunk": 13,
+      "file": "files/cc1ihy5f6kkp",
+      "job": "batches/ahjeylsxdkx4wngqxbe1ivgdh0xg5sqqvj4b",
+      "collected": true
+    }
+  ]
+}

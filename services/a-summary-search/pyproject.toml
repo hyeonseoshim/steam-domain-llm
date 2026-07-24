@@ -1,0 +1,35 @@
+[project]
+name = "steam-domain-specific-llm"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "anthropic>=0.115.1",
+    "python-dotenv>=1.2.2",
+]
+
+[project.optional-dependencies]
+eval = ["kiwipiepy>=0.23.2"]
+# BERTScore(의미 유사도) — torch/transformers 끌고 옴(무거움). GPU 권장, CPU 가능.
+bertscore = ["bert-score>=0.3.13"]
+gpu = [
+    "torch>=2.12.1",
+    "transformers>=5.12.1",
+    "accelerate>=1.14.0",
+    "peft>=0.19.1",
+    "kiwipiepy>=0.23.2",
+]
+# 서빙 양자화 스터디 — vLLM(추론)+autoawq(4bit PTQ). Lightning GPU 전용.
+# ⚠️ T4(Turing)는 AWQ 추론 O, FP8 X. pynvml 은 VRAM 실측용(선택).
+serve = [
+    "vllm>=0.6.0",
+    "autoawq>=0.2.6",
+    "pynvml>=11.5.0",
+    "peft>=0.19.1",  # merge_lora.py 가 어댑터 병합에 사용(서빙 파이프라인 0단계)
+]
+
+[tool.uv]
+# gpu(torch>=2.12) 와 serve(vLLM은 torch<=2.11 고정) 는 절대 같이 안 깔림
+# — 학습 studio vs 서빙 studio 별개. 상충 선언해 uv가 각각 따로 resolve.
+conflicts = [
+    [{ extra = "gpu" }, { extra = "serve" }],
+]

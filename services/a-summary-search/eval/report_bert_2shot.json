@@ -1,0 +1,30 @@
+{
+  "metric": "bertscore",
+  "model": "(lang=ko)",
+  "device": "cuda",
+  "gold_total": 416,
+  "scored": 416,
+  "missing_pred": 0,
+  "bertscore_overall": {
+    "p": 0.7359,
+    "r": 0.7203,
+    "f": 0.7279
+  },
+  "bertscore_per_field": {
+    "장르": {
+      "p": 0.8187,
+      "r": 0.7902,
+      "f": 0.8036
+    },
+    "핵심플레이": {
+      "p": 0.748,
+      "r": 0.7362,
+      "f": 0.7418
+    },
+    "특징": {
+      "p": 0.7319,
+      "r": 0.7167,
+      "f": 0.724
+    }
+  }
+}

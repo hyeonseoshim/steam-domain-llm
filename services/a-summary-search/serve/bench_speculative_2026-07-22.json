@@ -1,0 +1,128 @@
+{
+  "experiment": "Qwen2.5-3B merged FP8 speculative decoding",
+  "date": "2026-07-22",
+  "hardware": "Modal L4",
+  "workload": {
+    "sample_n": 24,
+    "sampling": "gold_test input-length quantiles",
+    "mode": "warm sequential batch=1",
+    "max_tokens": 320,
+    "stop": "}",
+    "temperature": 0.0
+  },
+  "current_production_reference": {
+    "vllm": "0.10.2",
+    "p50_ms": 3157.6,
+    "p95_ms": 4293.0,
+    "effective_output_tok_s": 55.7,
+    "format_ok": "24/24"
+  },
+  "vllm_0_17_1": [
+    {
+      "variant": "base",
+      "draft": null,
+      "p50_ms": 2721.2,
+      "p95_ms": 3686.2,
+      "mean_ms": 2667.2,
+      "load_s": 114.5,
+      "model_memory_gib_from_log": 3.19,
+      "kv_cache_tokens_from_log": 203104,
+      "effective_output_tok_s": 58.8,
+      "format_ok": "24/24"
+    },
+    {
+      "variant": "draft_k1",
+      "draft": "Qwen/Qwen2.5-0.5B-Instruct",
+      "num_speculative_tokens": 1,
+      "p50_ms": 2508.5,
+      "p95_ms": 3475.8,
+      "mean_ms": 2502.0,
+      "load_s": 140.5,
+      "model_memory_gib_from_log": 4.12,
+      "kv_cache_tokens_from_log": 122192,
+      "effective_output_tok_s": 63.8,
+      "format_ok": "24/24",
+      "acceptance_rate_observed_percent": "50.1-55.5",
+      "p50_improvement_vs_0_17_1_base_percent": 7.8,
+      "p50_improvement_vs_current_production_percent": 20.6
+    },
+    {
+      "variant": "draft_k2",
+      "draft": "Qwen/Qwen2.5-0.5B-Instruct",
+      "num_speculative_tokens": 2,
+      "p50_ms": 2826.0,
+      "p95_ms": 3734.0,
+      "effective_output_tok_s": 60.2,
+      "format_ok": "24/24",
+      "acceptance_rate_observed_percent": "38.2-46.6",
+      "p50_improvement_vs_0_17_1_base_percent": -3.9
+    },
+    {
+      "variant": "draft_k3",
+      "draft": "Qwen/Qwen2.5-0.5B-Instruct",
+      "num_speculative_tokens": 3,
+      "p50_ms": 3861.0,
+      "p95_ms": 5011.0,
+      "effective_output_tok_s": 44.9,
+      "format_ok": "24/24",
+      "acceptance_rate_observed_percent": "28.4-36.8",
+      "p50_improvement_vs_0_17_1_base_percent": -41.9
+    },
+    {
+      "variant": "draft_k5",
+      "draft": "Qwen/Qwen2.5-0.5B-Instruct",
+      "num_speculative_tokens": 5,
+      "p50_ms": 5300.0,
+      "p95_ms": 7012.0,
+      "effective_output_tok_s": 31.3,
+      "format_ok": "24/24",
+      "acceptance_rate_observed_percent": "21.3-26.4",
+      "p50_improvement_vs_0_17_1_base_percent": -94.8
+    }
+  ],
+  "sample_quality_check": {
+    "metric": "regex-tokenized ROUGE on the same 24 records",
+    "base": {"rouge1_f": 0.3272, "rouge2_f": 0.1212, "rougeL_f": 0.2477},
+    "draft_k1": {"rouge1_f": 0.3520, "rouge2_f": 0.1398, "rougeL_f": 0.2791},
+    "format_compliance": {"base": "24/24", "draft_k1": "24/24"},
+    "interpretation": "No quality regression signal in this small sample; full-set validation is still required before production."
+  },
+  "cold_start_followup": {
+    "jit_cache_hit_isolated": {
+      "load_s": 66.7,
+      "p50_ms": 2757.1,
+      "p95_ms": 3690.6,
+      "format_ok": "24/24"
+    },
+    "rejected_variants": [
+      {
+        "variant": "enforce_eager",
+        "reason": "warm latency regression",
+        "p50_ms": 5082,
+        "p95_ms": 7121,
+        "format_ok": "24/24"
+      },
+      {
+        "variant": "limited_cudagraphs_1_2_4",
+        "reason": "p95 instability and one format failure",
+        "p50_ms": 2628,
+        "p95_ms": 4346,
+        "format_ok": "23/24"
+      },
+      {
+        "variant": "same_l4_parallel_load",
+        "reason": "Retriever/vLLM resource contention",
+        "search_ready_s": 66.4,
+        "total_model_ready_s": 123
+      }
+    ],
+    "production_split_gpu_e2e": {
+      "search_ready_s": 48,
+      "realtime_panel_ready_retry": 18,
+      "realtime_panel_ready_total_s": 126,
+      "wait_after_search_s": 78,
+      "indexed_panel_fallback": false
+    }
+  },
+  "verdict": "Keep vLLM 0.17.1 + K=1 and persistent JIT cache. Split retrieval and realtime summarization into independently scaling L4 services, then wake both only on an explicit search request."
+}

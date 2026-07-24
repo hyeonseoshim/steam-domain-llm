@@ -1,0 +1,26 @@
+{
+  "purpose": "minor 티어(심사 level-1) 60건 사람 감사 — 심사관 경미 플래그 타당성 검증 + 놓친 결함 탐지",
+  "sample_size": 60,
+  "sampling": "review_references.py 층화 랜덤(short/mid/long), seed=42",
+  "level1_flag_dist": {"환각": 42, "누락": 38, "형식": 24},
+  "categorization": {
+    "benign_genre_from_tags": 45,
+    "clean_judge_positive": 8,
+    "genuine_minor_error": 5,
+    "ea_already_fixed_in_gold": 2
+  },
+  "note_categorization": "다수(45)는 '장르에 Steam 태그 기반 장르가 원문엔 없다'는 이미 아는 심사관 오탐(critical keep 10건과 동일 사유) → 무해. 8건은 심사관이 근거에 '문제없음/양호'라 적고 형식으로 1을 준 케이스 → 실제 문제 없음.",
+  "genuine_minor_errors": [
+    {"appid": 524240, "name": "STONEBOND", "issue": "승리조건 반전 — 원문 'win by protecting it together'인데 요약은 '나머지 두 플레이어가 파괴해야 승리'", "severity": "minor", "gold_review": "auto"},
+    {"appid": 209170, "name": "Call of Duty: Ghosts", "issue": "'contextual lean'을 '리언'으로 무의미 음역", "severity": "minor", "gold_review": "auto"},
+    {"appid": 2965380, "name": "Relaxing Simulator", "issue": "달리기 가능 여부를 '뛰기 없이 걸으며'로 서술(원문 근거 불명확)", "severity": "minor", "gold_review": "auto"},
+    {"appid": 272040, "name": "KAMI", "issue": "'하나의 색으로 채우는' — 원문 'fill the screen'에 색 조건 미명시(게임상 사실이나 원문 초과)", "severity": "trivial", "gold_review": "auto"},
+    {"appid": 275350, "name": "Sentinel 3", "issue": "'외계 침략 방어' — 원문이 tower defense라 방어는 타당, 서사 방향만 경미 혼선(오류 아님으로 재판정)", "severity": "not_error", "gold_review": "auto"}
+  ],
+  "ea_already_fixed": [
+    {"appid": 2782030, "name": "Knights of Conquest"},
+    {"appid": 3514620, "name": "Astrophibian"}
+  ],
+  "conclusion": "minor 티어는 무해한 '장르=Steam 태그' 오탐이 지배하며 심사관 판정이 일관됨(형식 v1 같은 체계적 오류 없음) → minor 1,292건 auto-채택 정당. 표본 내 실질 결함 3~4/60 ≈ 5~7%(전부 level-1, 게임 식별 가능한 경미 수준). 이는 gold의 알려진 잔여 한계로 모델카드에 기록.",
+  "residual_minor_error_estimate": "약 5~7% (level-1, 주로 장르 세부/사소한 서술)"
+}

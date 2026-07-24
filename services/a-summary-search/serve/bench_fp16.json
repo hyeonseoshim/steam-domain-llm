@@ -1,0 +1,24 @@
+{
+  "model": "part_a/serve/qwen2.5-3b-merged",
+  "quant": "none",
+  "weight_gb": 6.17,
+  "vram_used_mib": 14071.0,
+  "kv_cache": {
+    "num_gpu_blocks": null,
+    "block_size": null,
+    "kv_tokens": null
+  },
+  "load_s": 45.1,
+  "latency_n": 32,
+  "prefill_ms_p50": 134.4185,
+  "prefill_ms_p95": 277.1561,
+  "total_ms_p50": 5493.643,
+  "total_ms_p95": 7398.0455,
+  "decode_tok_s_p50": 30.1032,
+  "batch_throughput_tok_s": 618.0,
+  "batch_n": 416,
+  "format_ok": 413,
+  "format_bad": 3,
+  "est_cost_per_game_usd": 1.4e-05,
+  "est_cost_per_240k_usd": 3.44
+}
