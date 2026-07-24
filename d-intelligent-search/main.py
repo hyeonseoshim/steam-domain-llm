@@ -33,10 +33,6 @@ def create_app():
     )
     app.include_router(router)
 
-    # [2026-07-21] D 탭 CORS — A 게이트웨이의 브라우저 fetch 허용
-    # 운영: 환경변수 CORS_ALLOW_ORIGINS에 명시적 origin list (comma-separated).
-    # 개발: 환경변수 비어있으면 명시적 dev default (localhost only). "*"는 명시적 opt-in만 허용.
-    # 기본값은 와일드카드("*)가 아니므로, 환경변수 미설정 시 외부 도메인 호출은 거부됨.
     import os as _os
     from fastapi.middleware.cors import CORSMiddleware
     _cors_origins_env = _os.environ.get("CORS_ALLOW_ORIGINS", "").strip()
@@ -73,8 +69,6 @@ def create_app():
             ],
         }
 
-    # [2026-07-20] 통합 명세 — root path alias
-    # A 게이트웨이가 GET /search (path prefix 없음) 호출 가능하도록.
     @app.get("/search")
     def root_search(
         q: str = Query(..., min_length=1, description="자연어 query (필수)"),
