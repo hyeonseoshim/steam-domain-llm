@@ -1,0 +1,71 @@
+# Steam Part D 기본 설정
+# 환경변수(.env)로 override 가능 — pydantic-settings가 처리
+# [2026-07-22] DB path 정규화: data/00-DB/ 하위에 실 DB 존재
+
+app:
+  name: steam-part-d
+  version: 0.1.0
+  env: development
+  log_level: INFO
+
+api:
+  host: 0.0.0.0
+  port: 8004
+  explainer_language: ko
+
+database:
+  url: sqlite:///./data/00-DB/steam.db
+  pool_size: 5
+  echo: false
+
+llm:
+  base_url: http://localhost:8001/v1
+  api_key: not-required-for-local
+  model_name: part-d-constraint-extractor
+  timeout_sec: 30
+
+embedding:
+  model_name: BAAI/bge-m3
+  device: mps    # cpu → mps: Apple Silicon MPS 가속 (~5-10x speedup)
+  dim: 1024
+
+retrieval:
+  sql_candidate_limit: 200
+  semantic_rerank_top_k: 50
+  mmr_top_k: 20
+  final_top_k: 5
+  mmr_lambda: 0.5
+  bucket_max_per_genre: 2
+  enable_semantic_rerank: true
+  enable_mmr: true
+  # Cross Encoder (기본 OFF — 정확도 +7.1%p, latency +2~3초)
+  # 활성화: RETRIEVAL__ENABLE_CROSS_ENCODER=true (.env 또는 환경변수)
+  enable_cross_encoder: false
+  cross_encoder_model: BAAI/bge-reranker-v2-m3
+  cross_encoder_input_limit: 50   # 20 → 50 (v15 효과 +7.1%p 재현, 학습 평가용)
+  cross_encoder_top_k: 5
+  cross_encoder_batch_size: 32
+  # Self Reflection (기본 ON — 후보 0개일 때만 작동, latency 영향 없음)
+  enable_self_reflection: true
+  # Review Signal (기본 OFF — 효과 약함, latency +0.5초)
+  enable_review_signal: false
+  review_weight: 1.0
+  # Hybrid Retrieval / BM25 (기본 OFF — Hit Rate 변화 없음)
+  enable_hybrid: false
+  hybrid_bm25_top_k: 50
+  hybrid_rrf_k: 60
+  # Vector Search — 전체 150k 게임 임베딩 검색 (기본 ON)
+  # description_embedding 없으면 자동 SQL fallback
+  enable_vector_search: true
+  vector_search_top_k: 500   # 벡터 검색 후 SQL 필터 전 후보 수
+
+currency:
+  krw_per_usd: 1300
+
+extractor:
+  max_retries: 3
+  fallback_to_null: true
+
+explainer:
+  max_recommended: 3
+  include_constraint_summary: true
