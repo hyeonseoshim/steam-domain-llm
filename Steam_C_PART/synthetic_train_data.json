@@ -1,0 +1,57 @@
+[
+  {
+    "input": {
+      "query": "신화나 전설을 현대적으로 재해석한 웅장한 연출의 어드벤처",
+      "matched_game": "Legends: Saint George",
+      "appid": 3746100
+    },
+    "output": {
+      "developer_reason": "유저 자연어 쿼리 유사도 연산 기반 결과임. 선정된 게임 'Legends: Saint George'(AppID: 3746100)은 쿼리와의 시맨틱 유사도 0.6184를 기록함. 유저 가상 플레이 패턴 데이터 분석 결과, 유사 장르 누적 24시간 플레이 이력이 관측되어 가중 랭킹 시스템에 반영됨.",
+      "user_reason": "LEGENDS: SAINT GEORGE는 고전적인 신화와 전설을 현대적으로 재해석하여 웅장하고 감동적인 연출을 선사합니다."
+    }
+  },
+  {
+    "input": {
+      "query": "캐주얼하고 진입장벽이 낮아서 게임 안 해본 친구와도 가능한 게임",
+      "matched_game": "Embroideryvania",
+      "appid": 3448390
+    },
+    "output": {
+      "developer_reason": "유저 자연어 쿼리 유사도 연산 기반 결과임. 선정된 게임 'Embroideryvania'(AppID: 3448390)은 쿼리와의 시맨틱 유사도 0.6257를 기록함. 유저 가상 플레이 패턴 데이터 분석 결과, 유사 장르 누적 31시간 플레이 이력이 관측되어 가중 랭킹 시스템에 반영됨.",
+      "user_reason": "캐주얼하면서도 재미있는 Embroideryvania는 진입장벽이 매우 낮아 친구들과도 쉽게 즐길 수 있습니다."
+    }
+  },
+  {
+    "input": {
+      "query": "규칙은 오목만큼 쉬운데 마스터하긴 어려운 가벼운 보드게임 감성",
+      "matched_game": "SIMPLE GAME",
+      "appid": 1126450
+    },
+    "output": {
+      "developer_reason": "유저 자연어 쿼리 유사도 연산 기반 결과임. 선정된 게임 'SIMPLE GAME'(AppID: 1126450)은 쿼리와의 시맨틱 유사도 0.5962를 기록함. 유저 가상 플레이 패턴 데이터 분석 결과, 유사 장르 누적 16시간 플레이 이력이 관측되어 가중 랭킹 시스템에 반영됨.",
+      "user_reason": "SIMPLE GAME는 규칙이 오목처럼 간단하여 빠르게 시작할 수 있지만, 마스터하기에는 깊이는 충분합니다. 이 게임은 가벼운 보드게임 분위기를 느낄 수 있도록 설계되어 있습니다."
+    }
+  },
+  {
+    "input": {
+      "query": "시간 여행이나 루프물을 소재로 한 두뇌 자극 스토리 게임",
+      "matched_game": "Illusion: A Tale of the Mind",
+      "appid": 749980
+    },
+    "output": {
+      "developer_reason": "유저 자연어 쿼리 유사도 연산 기반 결과임. 선정된 게임 'Illusion: A Tale of the Mind'(AppID: 749980)은 쿼리와의 시맨틱 유사도 0.6392를 기록함. 유저 가상 플레이 패턴 데이터 분석 결과, 유사 장르 누적 49시간 플레이 이력이 관측되어 가중 랭킹 시스템에 반영됨.",
+      "user_reason": "Illusion: A Tale of the Mind"
+    }
+  },
+  {
+    "input": {
+      "query": "한 판당 10~20분 내외로 끝나서 출퇴근길이나 짬시간에 하기 좋은 게임",
+      "matched_game": "20 Small Mazes",
+      "appid": 2570630
+    },
+    "output": {
+      "developer_reason": "유저 자연어 쿼리 유사도 연산 기반 결과임. 선정된 게임 '20 Small Mazes'(AppID: 2570630)은 쿼리와의 시맨틱 유사도 0.6549를 기록함. 유저 가상 플레이 패턴 데이터 분석 결과, 유사 장르 누적 14시간 플레이 이력이 관측되어 가중 랭킹 시스템에 반영됨.",
+      "user_reason": "20 Small Mazes는 한 판당 10~20분 내외로 끝나기 때문에 출퇴근길이나 짬시간에 매우 적합합니다."
+    }
+  }
+]

@@ -1,0 +1,718 @@
+{
+  "codex_contract_check_20260721": [
+    {
+      "type": "search",
+      "payload": {
+        "query": "하드코어 패링"
+      },
+      "timestamp": 1784623794.897655
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 1222880,
+        "game_name": "ELDEN RING"
+      },
+      "timestamp": 1784623925.075777
+    }
+  ],
+  "codex_gateway_proxy_20260721": [
+    {
+      "type": "search",
+      "payload": {
+        "query": "우주 탐험"
+      },
+      "timestamp": 1784624160.911538
+    }
+  ],
+  "codex_gateway_e2e_v2_20260721": [
+    {
+      "type": "search",
+      "payload": {
+        "query": "힐링 농장"
+      },
+      "timestamp": 1784624191.692047
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 578380,
+        "game_name": "STARDEW VALLEY"
+      },
+      "timestamp": 1784624238.626306
+    }
+  ],
+  "u-3dqfahk0mrsus6p0": [
+    {
+      "type": "search",
+      "payload": {
+        "query": "액션 게임만 추천해줘"
+      },
+      "timestamp": 1784625241.431243
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "무조건 액션 게임만 추천해줘"
+      },
+      "timestamp": 1784625317.104759
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "액션 게임"
+      },
+      "timestamp": 1784704994.411377
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "액션 게임"
+      },
+      "timestamp": 1784705067.214784
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784705084.5228028
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 2379780,
+        "game_name": "Balatro"
+      },
+      "timestamp": 1784705090.7669718
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784705225.020092
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784705231.3664188
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784705383.123271
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784705385.270609
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784705432.0052
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784705434.014188
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784705434.6446788
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784705435.652598
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784705437.075575
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784705455.4173062
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784705456.5120158
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784705457.7821922
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784705659.294961
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 2379780,
+        "game_name": "Balatro"
+      },
+      "timestamp": 1784705667.48662
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784705839.006072
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 2379780,
+        "game_name": "Balatro"
+      },
+      "timestamp": 1784705843.922694
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784705870.6500218
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784706060.397246
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 646570,
+        "game_name": "Slay the Spire"
+      },
+      "timestamp": 1784706070.944355
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784706082.927679
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784706083.764243
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784706084.871973
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784706101.7741508
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784706102.6885388
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784706107.8233511
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784706107.840965
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784706127.163528
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784706132.1797
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784706173.961523
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784706183.583637
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784706665.790638
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784706709.616077
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 2379780,
+        "game_name": "Balatro"
+      },
+      "timestamp": 1784706724.902377
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 2379780,
+        "game_name": "Balatro"
+      },
+      "timestamp": 1784706924.592405
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 2379780,
+        "game_name": "Balatro"
+      },
+      "timestamp": 1784706936.1240199
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 겜"
+      },
+      "timestamp": 1784707320.291096
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 646570,
+        "game_name": "Slay the Spire"
+      },
+      "timestamp": 1784707385.455702
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "신나는 액션 게임"
+      },
+      "timestamp": 1784707708.426728
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 317360,
+        "game_name": "Double Action: Boogaloo"
+      },
+      "timestamp": 1784707727.3711748
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 1229490,
+        "game_name": "ULTRAKILL"
+      },
+      "timestamp": 1784707904.1125681
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784713280.5602372
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 2379780,
+        "game_name": "Balatro"
+      },
+      "timestamp": 1784713344.8657012
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 646570,
+        "game_name": "Slay the Spire"
+      },
+      "timestamp": 1784713423.6148171
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 646570,
+        "game_name": "Slay the Spire"
+      },
+      "timestamp": 1784713460.278765
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784714894.593379
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 2379780,
+        "game_name": "Balatro"
+      },
+      "timestamp": 1784714971.4934678
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 2379780,
+        "game_name": "Balatro"
+      },
+      "timestamp": 1784715055.256463
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "card roguelike deckbuilding game"
+      },
+      "timestamp": 1784766030.130667
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 646570,
+        "game_name": "Slay the Spire"
+      },
+      "timestamp": 1784766112.867362
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "action game"
+      },
+      "timestamp": 1784766271.38248
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784851958.5224068
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 2379780,
+        "game_name": "Balatro"
+      },
+      "timestamp": 1784852025.696054
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "화려한 액션 게임"
+      },
+      "timestamp": 1784852126.868144
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "액션 게임"
+      },
+      "timestamp": 1784852273.2998981
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 1115000,
+        "game_name": "SEKIRO: SHADOWS DIE TWICE"
+      },
+      "timestamp": 1784852732.975447
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "액션 게임"
+      },
+      "timestamp": 1784852747.1136441
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 1222880,
+        "game_name": "ELDEN RING"
+      },
+      "timestamp": 1784852777.1100109
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "록라 게임"
+      },
+      "timestamp": 1784852880.680615
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 632360,
+        "game_name": "Risk of Rain 2"
+      },
+      "timestamp": 1784852961.635679
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "액션 게임"
+      },
+      "timestamp": 1784856369.321894
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 1751110,
+        "game_name": "Jeebo & Jerbo vs. Life"
+      },
+      "timestamp": 1784856404.648889
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "액션 게임"
+      },
+      "timestamp": 1784856471.629895
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "액션 게임"
+      },
+      "timestamp": 1784856528.8251781
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784856587.127199
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 2379780,
+        "game_name": "Balatro"
+      },
+      "timestamp": 1784856591.3268979
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 2379780,
+        "game_name": "Balatro"
+      },
+      "timestamp": 1784856603.819136
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "화려한 비주얼 좋은 액션 게임"
+      },
+      "timestamp": 1784856729.876107
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 3277610,
+        "game_name": "Ahon"
+      },
+      "timestamp": 1784856779.945585
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 1996070,
+        "game_name": "YAYS - Your Adventure Your Story"
+      },
+      "timestamp": 1784856793.069542
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "화려한 비주얼 좋은 액션 게임"
+      },
+      "timestamp": 1784856885.4184709
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "로그라이크 게임"
+      },
+      "timestamp": 1784857078.857107
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 2686250,
+        "game_name": "Morels: The Hunt 2"
+      },
+      "timestamp": 1784857135.682967
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 1941410,
+        "game_name": "The Cub"
+      },
+      "timestamp": 1784868980.8757818
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "카드 로그라이크 덱빌딩 게임"
+      },
+      "timestamp": 1784869214.9633229
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 2379780,
+        "game_name": "Balatro"
+      },
+      "timestamp": 1784869306.4068742
+    }
+  ],
+  "coldtest": [
+    {
+      "type": "search",
+      "payload": {
+        "query": "moba"
+      },
+      "timestamp": 1784710617.003138
+    }
+  ],
+  "e2ecold": [
+    {
+      "type": "search",
+      "payload": {
+        "query": "moba"
+      },
+      "timestamp": 1784710746.949845
+    }
+  ],
+  "user_7f4c91a2b8e64d3f": [
+    {
+      "type": "search",
+      "payload": {
+        "query": "액션 게임"
+      },
+      "timestamp": 1784788809.128217
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "로그라이크 게임"
+      },
+      "timestamp": 1784788814.558469
+    }
+  ],
+  "u-e3qf5au8mrubmn6w": [
+    {
+      "type": "search",
+      "payload": {
+        "query": "무료 멀티 공포"
+      },
+      "timestamp": 1784804069.5783098
+    },
+    {
+      "type": "search",
+      "payload": {
+        "query": "무료 멀티 공포"
+      },
+      "timestamp": 1784804084.938007
+    }
+  ],
+  "u-ft7cq8j6mrublvoh": [
+    {
+      "type": "click",
+      "payload": {
+        "appid": 1222880,
+        "game_name": "ELDEN RING"
+      },
+      "timestamp": 1784855888.961003
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 3971080,
+        "game_name": "Monstra Cap"
+      },
+      "timestamp": 1784856243.984734
+    },
+    {
+      "type": "click",
+      "payload": {
+        "appid": 928350,
+        "game_name": "Steven the Sperm"
+      },
+      "timestamp": 1784856255.555406
+    }
+  ]
+}
