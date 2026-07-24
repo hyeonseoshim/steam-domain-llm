@@ -1,0 +1,12 @@
+.emb_cache/
+*.npy
+
+# 대용량/파생 코퍼스 데이터 (코드로 재생성 — 로컬 전용)
+#   corpus_source(371M)·corpus_batch_requests(368M)·batch_chunks = 재생성 가능
+#   corpus_summaries(61M, Gemini $7 산출) = Drive 백업(drive_batch.py)
+#   corpus_names(7M) = corpus_source에서 즉시 재추출
+corpus_*.jsonl
+*.gz
+batch_chunks/
+# BM25 토큰 캐시(.bm25_tokens.pkl 85M) — 재생성 315s
+*.pkl

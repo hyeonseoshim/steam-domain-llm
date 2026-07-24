@@ -1,0 +1,30 @@
+{
+  "metric": "bertscore",
+  "model": "(lang=ko)",
+  "device": "cpu",
+  "gold_total": 416,
+  "scored": 416,
+  "missing_pred": 0,
+  "bertscore_overall": {
+    "p": 0.7843,
+    "r": 0.7728,
+    "f": 0.7784
+  },
+  "bertscore_per_field": {
+    "장르": {
+      "p": 0.9177,
+      "r": 0.9159,
+      "f": 0.9161
+    },
+    "핵심플레이": {
+      "p": 0.7899,
+      "r": 0.7838,
+      "f": 0.7866
+    },
+    "특징": {
+      "p": 0.7706,
+      "r": 0.7595,
+      "f": 0.7648
+    }
+  }
+}

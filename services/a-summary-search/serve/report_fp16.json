@@ -1,0 +1,35 @@
+{
+  "tokenizer": "kiwi",
+  "gold_total": 416,
+  "scored": 416,
+  "missing_pred": 0,
+  "format_compliance": {
+    "overall": 0.9928,
+    "schema": 0.9928,
+    "genre_noun": 0.9928,
+    "no_bullet": 0.9928,
+    "korean": 0.9928
+  },
+  "rouge_overall": {
+    "r1_f": 0.5931,
+    "r2_f": 0.309,
+    "rL_f": 0.3989
+  },
+  "rouge_per_field": {
+    "장르": {
+      "r1_f": 0.773,
+      "r2_f": 0.6003,
+      "rL_f": 0.7186
+    },
+    "핵심플레이": {
+      "r1_f": 0.5439,
+      "r2_f": 0.2866,
+      "rL_f": 0.4081
+    },
+    "특징": {
+      "r1_f": 0.4779,
+      "r2_f": 0.2218,
+      "rL_f": 0.342
+    }
+  }
+}
