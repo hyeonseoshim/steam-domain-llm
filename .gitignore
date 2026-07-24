@@ -276,3 +276,14 @@ services/b-review-analysis/data/predictions/review_topic_predictions_parts/
 services/b-review-analysis/data/predictions/review_topic_predictions_smoke/
 services/b-review-analysis/data/predictions/batch_inference.log
 services/b-review-analysis/deploy/lightning_b_api.zip
+
+Steam_C_PART/.venv/
+
+Steam_C_PART/data/
+*.jsonl
+
+Steam_C_PART/data/
+*.jsonl
+
+Steam_C_PART/data/
+*.jsonl
